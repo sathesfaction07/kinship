@@ -1,8 +1,12 @@
 # CaseSearch
 
-Deduplicates cases across three regions, then groups the survivors into merchants — and measures whether the grouping is right, because with fuzzy matching that is not obvious.
+The same case shows up three times: once per regional system, each copy fetched at a different
+moment, the merchant's name spelled a little differently in each. CaseSearch collapses those
+copies into one case, groups the cases into merchants, and tells you how far to trust the
+grouping. Fuzzy name matching is not transitive, so "merge everything similar" can quietly chain
+two different merchants together. The tool measures that instead of hiding it.
 
-No model. The accuracy problem here is string normalisation and clustering, both of which are arithmetic.
+It is plain Python throughout: string normalisation, blocking and clustering, all deterministic.
 
 ---
 
@@ -26,7 +30,7 @@ So "merge everything similar" is ill-defined without a linkage rule, and every r
 
 ---
 
-## The Spec Contradicted Itself About the Key
+## Two Source Documents Disagreed About the Key
 
 One document said the composite key is `case_id + region + timestamp`. Another said `case_id + region`. That needed deciding rather than copying.
 
