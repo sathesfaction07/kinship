@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: check-merge-conflict
+
+  - repo: local
+    hooks:
+      # The corpus is sample data the property tests assert against. A truth key naming a
+      # case we do not hold would make every recall figure quietly wrong, so it is checked
+      # on every change to data/.
+      - id: corpus-is-consistent
+        name: every truth key names a case that exists after dedup
+        entry: >
+          python -c "import sys; sys.path.insert(0, 'src');
+          from pathlib import Path;
+          from case_search.sources import load_cases, load_truth;
+          from case_search.dedupe import dedupe;
+          rows, problems = load_cases(Path('data/cases.jsonl'));
+          assert not problems, problems;
+          kept, _ = dedupe(rows);
+          truth = load_truth(Path('data/truth.jsonl'));
+          orphans = sorted(set(truth) - {c.key for c in kept});
+          assert not orphans, f'{len(orphans)} truth key(s) name no held case: {orphans[:3]}';
+          print(f'{len(kept)} cases, {len(truth)} truth keys, no orphans')"
+        language: system
+        pass_filenames: false
+        files: ^data/
