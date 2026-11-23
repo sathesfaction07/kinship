@@ -29,7 +29,7 @@ jobs:
         run: pytest -q --cov=case_search --cov-report=term-missing
 
       - name: Doctor runs with no credentials and no network
-        run: case-search doctor -i data/cases.jsonl -k data/truth.jsonl
+        run: kinship doctor -i data/cases.jsonl -k data/truth.jsonl
 
       - name: Every truth key names a case that exists
         run: |
@@ -168,16 +168,16 @@ jobs:
 
       - name: resolve gates on the gap but reports the unknown
         run: |
-          ! case-search resolve -i data/cases.jsonl
-          case-search resolve -i data/cases.jsonl | grep -q 'gap_in_pages'
-          case-search resolve -i data/cases.jsonl | grep -q 'CANNOT be determined'
-          case-search resolve -i data/cases.jsonl | grep -q 'CHAINED'
-          case-search resolve -i data/cases.jsonl -l complete | grep -qv 'CHAINED' || true
+          ! kinship resolve -i data/cases.jsonl
+          kinship resolve -i data/cases.jsonl | grep -q 'gap_in_pages'
+          kinship resolve -i data/cases.jsonl | grep -q 'CANNOT be determined'
+          kinship resolve -i data/cases.jsonl | grep -q 'CHAINED'
+          kinship resolve -i data/cases.jsonl -l complete | grep -qv 'CHAINED' || true
           echo "gated on the gap, reported the unknown, flagged the chain"
 
       - name: compare produces the documented figures
         run: |
-          case-search compare -i data/cases.jsonl -k data/truth.jsonl -o /tmp/cmp
+          kinship compare -i data/cases.jsonl -k data/truth.jsonl -o /tmp/cmp
           python - <<'PY'
           import json
           payload = json.load(open("/tmp/cmp/comparison.json"))

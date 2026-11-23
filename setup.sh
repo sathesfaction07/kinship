@@ -253,12 +253,12 @@ Setup complete.
 
   source .venv/bin/activate
 
-  case-search doctor
-  case-search resolve -i data/cases.jsonl
-  case-search resolve -i data/cases.jsonl -l complete       # see what chaining costs
-  case-search compare -i data/cases.jsonl -k data/truth.jsonl
-  case-search compare -i data/cases.jsonl -k data/truth.jsonl -b prefix
-  case-search explain "ACME Foods" "Foods ACME"
+  kinship doctor
+  kinship resolve -i data/cases.jsonl
+  kinship resolve -i data/cases.jsonl -l complete       # see what chaining costs
+  kinship compare -i data/cases.jsonl -k data/truth.jsonl
+  kinship compare -i data/cases.jsonl -k data/truth.jsonl -b prefix
+  kinship explain "ACME Foods" "Foods ACME"
 
 `resolve` exits non-zero for a DEMONSTRABLE completeness problem -- a gap in page numbers or
 a shortfall against a declared total. It does NOT fail on a region that declares no total,

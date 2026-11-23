@@ -1,4 +1,4 @@
-# CaseSearch — Technical Architecture
+# Kinship — Technical Architecture
 
 ## Overview
 
@@ -17,7 +17,7 @@ No model — the accuracy problem is string normalisation and clustering, both a
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                          CLI (case-search)                                    │
+│                          CLI (kinship)                                    │
 │                                                                              │
 │  resolve  dedupe on (case_id, region) -> group into entities                   │
 │           EXIT 1 on a DEMONSTRABLE problem: a page gap or a shortfall.         │
@@ -207,7 +207,7 @@ output stops being a partition and every count becomes ambiguous.
 ## Data Flow
 
 ```
-1.  case-search compare -i data/cases.jsonl -k data/truth.jsonl
+1.  kinship compare -i data/cases.jsonl -k data/truth.jsonl
 2.  load 56 rows; 53 known assignments across 37 entities
 3.  dedupe on (case_id, region) -> 53 distinct, 3 dropped
       each survivor is the LATER observation, carrying the updated 'closed' status

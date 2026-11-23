@@ -1,7 +1,7 @@
-# CaseSearch
+# Kinship
 
 The same case shows up three times: once per regional system, each copy fetched at a different
-moment, the merchant's name spelled a little differently in each. CaseSearch collapses those
+moment, the merchant's name spelled a little differently in each. Kinship collapses those
 copies into one case, groups the cases into merchants, and tells you how far to trust the
 grouping. Fuzzy name matching is not transitive, so "merge everything similar" can quietly chain
 two different merchants together. The tool measures that instead of hiding it.
@@ -101,12 +101,12 @@ Those five span two genuinely different merchants. The entity implies 10 pairs; 
 bash setup.sh                 # derives the Unicode cases and the chain, not just installs
 source .venv/bin/activate
 
-case-search doctor
-case-search resolve -i data/cases.jsonl
-case-search resolve -i data/cases.jsonl -l complete       # see what chaining costs
-case-search compare -i data/cases.jsonl -k data/truth.jsonl
-case-search compare -i data/cases.jsonl -k data/truth.jsonl -b prefix
-case-search explain "ACME Foods" "Foods ACME"
+kinship doctor
+kinship resolve -i data/cases.jsonl
+kinship resolve -i data/cases.jsonl -l complete       # see what chaining costs
+kinship compare -i data/cases.jsonl -k data/truth.jsonl
+kinship compare -i data/cases.jsonl -k data/truth.jsonl -b prefix
+kinship explain "ACME Foods" "Foods ACME"
 ```
 
 | Command | Purpose | Exit |
@@ -197,7 +197,7 @@ So it was sometimes exactly right and sometimes wrong on nothing but row order. 
 
 **Which also means the ground truth for that chain is itself a judgement call.** Splitting five near-identical spellings into 3+2 is my assertion, and a careful human might split it differently. That is not a weakness of the corpus — it is the *point*. When the correct answer is genuinely unclear, an algorithm that confidently merges all five is asserting something unverifiable, and `weakest_internal_score` is what stops that assertion being silent.
 
-**Singletons are kept.** ImageCluster, elsewhere in this portfolio, drops groups of size 1 from its output. That would be wrong here: a merchant seen once is a real entity, and dropping singletons changes the denominator of every metric and makes the entity count incomparable to a truth set.
+**Singletons are kept.** Lookalike, elsewhere in this portfolio, drops groups of size 1 from its output. That would be wrong here: a merchant seen once is a real entity, and dropping singletons changes the denominator of every metric and makes the entity count incomparable to a truth set.
 
 **Both pairwise and cluster-level scoring are reported.** Pairwise is the entity-resolution convention and it forgives a nearly-right entity — one wrong merge costs only the pairs it wrongly creates. Cluster scoring demands exact set equality. A single wrong merge between two large groups is cheap pairwise and catastrophic by cluster, which is *precisely* the failure single linkage produces, so reporting only pairwise F1 would hide it.
 

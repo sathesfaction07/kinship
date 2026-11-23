@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "case-search"
+name = "kinship"
 version = "0.1.0"
 description = "Cross-region case deduplication with measured fuzzy entity resolution"
 requires-python = ">=3.11"
@@ -21,7 +21,7 @@ dev = [
 ]
 
 [project.scripts]
-case-search = "case_search.cli:cli"
+kinship = "case_search.cli:cli"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/case_search"]
