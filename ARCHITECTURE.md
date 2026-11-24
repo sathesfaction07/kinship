@@ -59,7 +59,7 @@ No model — the accuracy problem is string normalisation and clustering, both a
 │                                │   │                                      │
 │  edit_distance   two rows, not │   │  identity is (case_id, region).      │
 │    a matrix: O(min(n,m)) space │   │  DELIBERATELY NOT the timestamp --    │
-│                                │   │  the spec contradicted itself and     │
+│                                │   │  two source documents disagreed and     │
 │  character  1 - dist/LONGEST   │   │  including it means the same case     │
 │    longest, not average: 'ab'  │   │  re-fetched gets two keys and dedup   │
 │    vs 'abcdefgh' is 0.25 not   │   │  NEVER FIRES. Silent in the worst     │

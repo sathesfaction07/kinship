@@ -59,8 +59,7 @@ which is direct evidence of chaining rather than an inference.
 
 ### Singletons are kept
 
-A merchant seen once is a real entity. Dropping singletons — as a sibling project in this
-portfolio does for image clusters — would change the denominator of every metric and make the
+A merchant seen once is a real entity. Dropping singletons — as a sibling project does for image clusters — would change the denominator of every metric and make the
 entity count incomparable to a truth set.
 
 ## The bug, and a fix that made accuracy worse

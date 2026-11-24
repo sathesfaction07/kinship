@@ -27,7 +27,7 @@ relation. It is not transitive, and on real merchant names the failure is easy t
 So "merge everything similar" is ill-defined without a rule for what to do with a chain, and
 every available rule gives something up.
 
-### The spec contradicted itself about the key
+### Two source documents disagreed about the key
 
 One document specified `case_id + region + timestamp`. Another specified `case_id + region`.
 That needed deciding rather than copying.

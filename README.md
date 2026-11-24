@@ -171,7 +171,7 @@ That last row is why normalisation happens *before* similarity: an edit distance
 
 **I suspected `difflib.SequenceMatcher` was asymmetric and checked rather than asserting. It is not** — 0 of 8 probe pairs. So the reason I wrote my own edit distance is not asymmetry; it is that Ratcliff-Obershelp is not an edit distance at all, and the number needed to be one I could reason about per-edit. Having a per-edit cost of exactly `1/length` is what makes the chain analysis above arithmetic rather than empirical.
 
-**A docstring number I wrote from intuition was wrong, and this is the third time in this portfolio.** I claimed the character similarity of `ACME Foods` against `Foods ACME` was 0.40. It is **0.00** — both canonical forms are ten characters differing at every position, so there is no partial credit whatsoever. The measurement corrected me, and the corrected figure makes the argument *stronger*: an average of character and token similarity would score a genuine match at 0.50, below any usable threshold. Hence the maximum rather than the average.
+**A docstring number I wrote from intuition was wrong, and this is the third time across these projects.** I claimed the character similarity of `ACME Foods` against `Foods ACME` was 0.40. It is **0.00** — both canonical forms are ten characters differing at every position, so there is no partial credit whatsoever. The measurement corrected me, and the corrected figure makes the argument *stronger*: an average of character and token similarity would score a genuine match at 0.50, below any usable threshold. Hence the maximum rather than the average.
 
 **Taking the maximum buys recall with precision, and the docs say so.** The two measures fail on opposite inputs — character distance on reordered tokens, token overlap on a typo inside a token — so each is evidence *for* a match and neither is evidence against. But a maximum can only raise scores, so it raises false positives too. The measurement is what decides whether that paid.
 
@@ -197,7 +197,7 @@ So it was sometimes exactly right and sometimes wrong on nothing but row order. 
 
 **Which also means the ground truth for that chain is itself a judgement call.** Splitting five near-identical spellings into 3+2 is my assertion, and a careful human might split it differently. That is not a weakness of the corpus — it is the *point*. When the correct answer is genuinely unclear, an algorithm that confidently merges all five is asserting something unverifiable, and `weakest_internal_score` is what stops that assertion being silent.
 
-**Singletons are kept.** Lookalike, elsewhere in this portfolio, drops groups of size 1 from its output. That would be wrong here: a merchant seen once is a real entity, and dropping singletons changes the denominator of every metric and makes the entity count incomparable to a truth set.
+**Singletons are kept.** Lookalike, a sibling project, drops groups of size 1 from its output. That would be wrong here: a merchant seen once is a real entity, and dropping singletons changes the denominator of every metric and makes the entity count incomparable to a truth set.
 
 **Both pairwise and cluster-level scoring are reported.** Pairwise is the entity-resolution convention and it forgives a nearly-right entity — one wrong merge costs only the pairs it wrongly creates. Cluster scoring demands exact set equality. A single wrong merge between two large groups is cheap pairwise and catastrophic by cluster, which is *precisely* the failure single linkage produces, so reporting only pairwise F1 would hide it.
 
@@ -211,7 +211,7 @@ So it was sometimes exactly right and sometimes wrong on nothing but row order. 
 
 **Union-find is iterative.** Recursive path compression blows the stack on a long chain, and a long chain is exactly what single linkage produces on near-duplicate names — so the recursive form fails on the input this exists to handle.
 
-**No Excel pivot tables, despite the spec asking.** CSV and JSON are what a pivot table is built *from*, and they assert in CI. A pivot table cannot.
+**No Excel pivot tables, despite the project brief asking.** CSV and JSON are what a pivot table is built *from*, and they assert in CI. A pivot table cannot.
 
 ---
 
